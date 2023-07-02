@@ -1,226 +1,276 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Add Persons-sample</title>
+  <title>Person-Detail DAVE.AI Assignment.</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
-  
   <style>
-    
-    /* CSS styles*/
-    body {
-      font-family: 'Times New Roman', Times, serif;
-      margin: 20px;
-      color: rgb(5, 1, 8)
-    }
-    
-    h1 {
-      text-align: center;
-    }
-    
-    form {
-      margin-bottom: 20px;
-    }
-    
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    
-    th, td {
-      padding: 8px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
-    
-    .error {
-      color: red;
-      font-size: 12px;
-    }
-  </style>
+         body {
+    font-family: 'Times New Roman', Times, serif;
+    margin: 20px;
+    color: rgb(5, 1, 8)
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+  }
+    </style>
 </head>
-
 <body>
-
-  <h1 style="color: rgb(5, 5, 5);">ADD PERSON DETAILS</h1>
-  
-  <div id="persons-list"
-  background-color:green;
-  color: pink>
-    <table id="persons-table">
-      <tr>
-        <th><h4>First Name</h4></th>
-        <th><h4>Last Name</h4></th>
-        <th><h4>Date of Birth</h4></th>
-        <th><h4>Email</h4></th>
-        <th><h4>Mobile Number</h4></th>
-        <th><h4>City</h4></th>
-        <th><h4>Pincode/Zipcode</h4></th>
-      </tr>
+  <h1 style="color: rgb(5, 5, 5);">PERSON DETAILS</h1>
+  <div>
+    <h2>Persons List View:</h2>
+    <div>
+      <label for="searchInput"><h3>Search Person:</h3></label>
+      <input type="text" id="searchInput">
+      <button onclick="search()">Search</button>
+    </div>
+    <table id="personsTable">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Date of Birth</th>
+          <th>Email</th>
+          <th>Mobile Number</th>
+          <th>City</th>
+          <th>Pincode/Zipcode</th>
+        </tr>
+      </thead><br>
+      <tbody id="personsTableBody">
+      </tbody>
     </table>
-  </div>
-
-  <h2 style="color: rgb(10, 10, 10);",center>Enter the person details in the below form:</h2>
+    <div>
+      <button onclick="sortByName()">Sort by Name</button>
+      <button onclick="sortByDob()">Sort by Date of Birth</button>
+      <button onclick="reset()">Reset</button>
+      <button onclick="previousPage()">Previous Page</button>
+      <button onclick="nextPage()">Next Page</button>
+    </div>
+  <div>
+    <h2 style="color: rgb(10, 10, 10);",center>Enter the person details in the below form:</h2>
   
-  <form id="person-form">
-    <label for="firstName"><h2>First Name:</h2></label>
-    <input type="text" id="firstName" required>
-    <span id="firstNameError" class="error"></span><br>
-    
-    <label for="lastName"><h2>Last Name:</h2></label>
-    <input type="text" id="lastName" required>
-    <span id="lastNameError" class="error"></span><br>
-    
-    <label for="dob"><h2>Date of Birth:</h2></label>
-    <input type="date" id="dob" required>
-    <span id="dobError" class="error"></span><br>
-    
-    <label for="email"><h2>Email:</h2></label>
-    <input type="email" id="email" required>
-    <span id="emailError" class="error"></span><br>
-    
-    <label for="mobile"><h2>Mobile Number:</h2></label>
-    <input type="tel" id="mobile" required>
-    <span id="mobileError" class="error"></span><br>
-    
-    <label for="city"><h2>City:</h2></label>
-    <input type="text" id="city" required>
-    <span id="cityError" class="error"></span><br>
-    
-    <label for="pincode"><h2>Pincode/Zipcode:</h2></label>
-    <input type="text" id="pincode" required>
-    <span id="pincodeError" class="error"></span><br><br>
+    <form id="personForm">
+      <label for="firstName"><strong>First Name:</strong></label>
+      <input type="text" id="firstName" required><br>
+      <span id="firstNameError" class="error"></span><br>
 
-    <button class="my-button">Click me to ADD details</button>
+      <label for="lastName"><b>Last Name:</b></label>
+      <input type="text" id="lastName" required><br>
+      <span id="lastNameError" class="error"></span><br>
 
+      <label for="dob"><b>Date of Birth:</b></label> 
+      <input type="date" id="dob" required><br>
+      <span id="dobError" class="error"></span><br>
+
+      <label for="email"><b>Email id:</b></label>
+      <input type="email" id="email" required><br>
+      <span id="emailError" class="error"></span><br>
+
+      <label for="phone"><b>Mobile Number:</b></label>
+      <input type="tel" id="phone" pattern="[0-9]{10,14}" required><br>
+      <span id="mobileError" class="error"></span><br>
     
-  </form>
+      <label for="city"><b>City:</b></label>
+      <select id="city" x-model="city" required>
+        <option value="">Select City</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Kolkata">Kolkata</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Pune">Pune</option>
+        <option value="Ahmedabad">Ahmedabad</option>
+        <option value="Jaipur">Jaipur</option>
+        <option value="Lucknow">Lucknow</option>
+      </select><br><br>
+
+      <label for="pincode"><b>Pincode/Zipcode:</b></label>
+      <input type="text" id="pincode" required>
+      <span id="pincodeError" class="error"></span><br><br>
+
+      <input type="submit" value="ADD PERSON">
+    </form>
+  </div>
+</div>
 
   <script>
-    //JAVA-Script for validation
-    // Function to validate email format
-    function validateEmail(email) {
-      const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      return emailRegex.test(email);
-    }
-    
-    // Function to validate mobile number format
-    function validateMobile(mobile) {
-      const mobileRegex = /^\d{10}$/;
-      return mobileRegex.test(mobile);
-    }
-    
-    // Function to validate date of birth (above 18 years)
-    function validateDOB(dob) {
-      const today = new Date();
-      const birthDate = new Date(dob);
-      const age = today.getFullYear() - birthDate.getFullYear();
-      const monthDiff = today.getMonth() - birthDate.getMonth();
-      
-      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-      
-      return age >= 18;
-    }
-    
-    // Function to handle form submission
-    function handleFormSubmit(event) {
+    // Data array to store persons
+    let persons = [];
+
+    // Form submission event handler
+    document.getElementById("personForm").addEventListener("submit", function(event) {
       event.preventDefault();
       
-      // Clear previous errors
-      clearErrors();
-      
       // Get form values
-      const firstName = document.getElementById("firstName").value.trim();
-      const lastName = document.getElementById("lastName").value.trim();
+      const firstName = document.getElementById("firstName").value;
+      const lastName = document.getElementById("lastName").value;
       const dob = document.getElementById("dob").value;
-      const email = document.getElementById("email").value.trim();
-      const mobile = document.getElementById("mobile").value.trim();
-      const city = document.getElementById("city").value.trim();
-      const pincode = document.getElementById("pincode").value.trim();
-      
-      // Validate form inputs
-      let isValid = true;
-      
-      if (firstName === "") {
-        document.getElementById("firstNameError").textContent = "Please enter the first name.";
-        isValid = false;
-      }
-      
-      if (lastName === "") {
-        document.getElementById("lastNameError").textContent = "Please enter the last name.";
-        isValid = false;
-      }
-      
-      if (!validateDOB(dob)) {
-        document.getElementById("dobError").textContent = "Age should be above 18.";
-        isValid = false;
-      }
-      
-      if (!validateEmail(email)) {
-        document.getElementById("emailError").textContent = "Please enter a valid email.";
-        isValid = false;
-      }
-      
-      if (!validateMobile(mobile)) {
-        document.getElementById("mobileError").textContent = "Please enter a valid 10-digit mobile number.";
-        isValid = false;
-      }
-      
-      if (city === "") {
-        document.getElementById("cityError").textContent = "Please enter the city.";
-        isValid = false;
-      }
-      
-      if (pincode === "") {
-        document.getElementById("pincodeError").textContent = "Please enter the pincode/zipcode.";
-        isValid = false;
-      }
-      
-      if (!isValid) {
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const city = document.getElementById("city").value;
+      const pincode = document.getElementById("pincode").value;
+
+      // Validate inputs
+      if (!validateEmail(email) || !validatePhoneNumber(phone) || !validateDateOfBirth(dob)) {
+        alert("Invalid input. Please check the form fields.");
         return;
       }
-      
-      // Create a new row for the person
-      const table = document.getElementById("persons-table");
-      const newRow = table.insertRow();
-      
-      const cell1 = newRow.insertCell();
-      cell1.textContent = firstName;
-      
-      const cell2 = newRow.insertCell();
-      cell2.textContent = lastName;
-      
-      const cell3 = newRow.insertCell();
-      cell3.textContent = dob;
-      
-      const cell4 = newRow.insertCell();
-      cell4.textContent = email;
-      
-      const cell5 = newRow.insertCell();
-      cell5.textContent = mobile;
-      
-      const cell6 = newRow.insertCell();
-      cell6.textContent = city;
-      
-      const cell7 = newRow.insertCell();
-      cell7.textContent = pincode;
-      
-      // Clear form inputs
-      document.getElementById("person-form").reset();
+
+      // Create person object
+      const person = {
+        firstName,
+        lastName,
+        dob,
+        email,
+        phone,
+        city,
+        pincode
+      };
+
+      // Add person to the array
+      persons.push(person);
+
+      // Reset form fields
+      document.getElementById("personForm").reset();
+
+      // Update persons list
+      displayPersons();
+    });
+
+    // Function to validate email format
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
     }
-    
-    // Function to clear error messages
-    function clearErrors() {
-      const errorElements = document.getElementsByClassName("error");
-      
-      Array.from(errorElements).forEach((element) => {
-        element.textContent = "";
-      });
+
+    // Function to validate phone number format
+    function validatePhoneNumber(phone) {
+      const phoneRegex = /^\d{10,14}$/;
+      return phoneRegex.test(phone);
     }
-    
-    // Add event listener for form submission
-    document.getElementById("person-form").addEventListener("submit", handleFormSubmit);
+
+    // Function to validate date of birth (above 18 years)
+    function validateDateOfBirth(dob) {
+      const currentDate = new Date();
+      const inputDate = new Date(dob);
+      const eighteenYearsAgo = new Date();
+      eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
+
+      return inputDate <= eighteenYearsAgo && inputDate <= currentDate;
+    }
+
+    // Function to display persons in the table
+    function displayPersons() {
+      const tableBody = document.getElementById("personsTableBody");
+      tableBody.innerHTML = "";
+
+      for (let person of persons) {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${person.firstName}</td>
+          <td>${person.lastName}</td>
+          <td>${person.dob}</td>
+          <td>${person.email}</td>
+          <td>${person.phone}</td>
+          <td>${person.city}</td>
+          <td>${person.pincode}</td>
+        `;
+        tableBody.appendChild(row);
+      }
+    }
+
+    // Function to sort persons by name
+    function sortByName() {
+      persons.sort((a, b) => a.firstName.localeCompare(b.firstName));
+      displayPersons();
+    }
+
+    // Function to sort persons by date of birth
+    function sortByDob() {
+      persons.sort((a, b) => new Date(a.dob) - new Date(b.dob));
+      displayPersons();
+    }
+
+    // Function to reset the persons list
+    function reset() {
+      persons = [];
+      displayPersons();
+    }
+
+    // Function to perform search
+    function search() {
+      const searchInput = document.getElementById("searchInput").value.toLowerCase();
+      const filteredPersons = persons.filter(person =>
+        person.firstName.toLowerCase().includes(searchInput) ||
+        person.lastName.toLowerCase().includes(searchInput) ||
+        person.email.toLowerCase().includes(searchInput) ||
+        person.city.toLowerCase().includes(searchInput) ||
+        person.pincode.toLowerCase().includes(searchInput)
+      );
+      displaySearchedPersons(filteredPersons);
+    }
+
+    // Function to display searched persons
+    function displaySearchedPersons(filteredPersons) {
+      const tableBody = document.getElementById("personsTableBody");
+      tableBody.innerHTML = "";
+
+      for (let person of filteredPersons) {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${person.firstName}</td>
+          <td>${person.lastName}</td>
+          <td>${person.dob}</td>
+          <td>${person.email}</td>
+          <td>${person.phone}</td>
+          <td>${person.city}</td>
+          <td>${person.pincode}</td>
+        `;
+        tableBody.appendChild(row);
+      }
+   
+
+ }
+
+    // Function for pagination
+    let currentPage = 1;
+    const itemsPerPage = 5;
+
+    function nextPage() {
+      const totalPages = Math.ceil(persons.length / itemsPerPage);
+      if (currentPage < totalPages) {
+        currentPage++;
+        displayPersons();
+      }
+    }
+
+    function previousPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        displayPersons();
+      }
+    }
   </script>
 </body>
 </html>
