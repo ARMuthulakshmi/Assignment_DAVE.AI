@@ -3,12 +3,4 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
   }
-  .my-button {
-    background-color: #0b0c0b; /* Green background color */
-    color: white; /* Text color */
-    padding: 20px 20px; /* Padding around the text */
-    border: none; /* Remove the default button border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Show a pointer cursor on hover */
-  }
-  
+ 
